@@ -1,0 +1,29 @@
+name: AI Bot
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  ai:
+    if: github.event.label.name == 'ai-task'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install openai
+
+      - name: Run AI
+        run: node ai.js
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}

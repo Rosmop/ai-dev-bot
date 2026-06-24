@@ -25,7 +25,7 @@ AI работает
 `;
 
 const res = await client.chat.completions.create({
-model: "gpt-4.1-mini",
+model: "ЭТО_ПРОВЕРКА",
   messages: [{ role: "user", content: prompt }],
 });
 
